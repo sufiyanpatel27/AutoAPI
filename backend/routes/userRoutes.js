@@ -1,15 +1,15 @@
 // importing necessary packages
 const express = require('express');
 const bodyParser = require('body-parser');
-const userController = require('../controllers/userController');
+const schemaController = require('../controllers/schemaController');
 
 // defining router
 const router = express.Router();
 router.use(bodyParser.json());
 
 // route on path "/"
-router.post('/', async(req, res) => {
-  const data = await userController.createData(req.body);
+router.post('/create_schema', async(req, res) => {
+  const data = await schemaController.createSchema(req.body);
   res.json(data);
 })
 

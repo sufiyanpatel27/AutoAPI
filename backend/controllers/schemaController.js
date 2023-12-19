@@ -5,7 +5,7 @@ const util = require('util');
 const doubleQuoteRemover = require('./doubleQuoteRemover')
 
 // code for new Schema creation
-const createData = (body) => {
+const createSchema = (body) => {
   const content1 = "const mongoose = require('mongoose');\n\n";
   const content2 = "const " + body.schemaName + "Schema = new mongoose.Schema(";
   const content3 = doubleQuoteRemover(body.schema);
@@ -26,5 +26,5 @@ const createData = (body) => {
 }
 
 module.exports = {
-  createData
+  createSchema
 };
