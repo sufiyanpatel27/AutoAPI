@@ -1,14 +1,16 @@
-// routes/userRoutes.js
+// importing necessary packages
 const express = require('express');
 const bodyParser = require('body-parser');
 const userController = require('../controllers/userController');
 
+// defining router
 const router = express.Router();
 router.use(bodyParser.json());
 
-router.get('/', (req, res) => {
-  const users = userController.getUsers();
-  res.json(users);
-});
+// route on path "/"
+router.post('/', async(req, res) => {
+  const data = await userController.createData(req.body);
+  res.json(data);
+})
 
 module.exports = router;

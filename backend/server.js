@@ -1,14 +1,17 @@
+// importing necessary packages
 const express = require('express');
-const bodyParser = require('body-parser');
 const userRoutes = require('./routes/userRoutes');
 
+// defining PORT
 const PORT = process.env.PORT || 5000;
 
+// defining express App
 const app = express();
 
+// using routes on path "/"
 app.use('/', userRoutes);
 
-
+// starting the App
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`)
 })
