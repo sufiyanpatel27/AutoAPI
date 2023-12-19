@@ -17,7 +17,7 @@ const createData = (body) => {
   const combinedContent = content1 + content2 + util.inspect(content3, { depth: null }) + content4 + content5 + content6;
 
   // creating a javascript file
-  const txtFilePath = path.join(__dirname, body.schemaName + '.js');
+  const txtFilePath = path.join("./Code/models", body.schemaName + '.js');
 
   // writing into the js file
   fs.writeFileSync(txtFilePath, combinedContent, 'utf-8');
