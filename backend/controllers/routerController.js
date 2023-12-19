@@ -4,8 +4,12 @@ const path = require('path');
 const util = require('util');
 const doubleQuoteRemover = require('./doubleQuoteRemover')
 
+const controllerController = require('./controllerController')
+
 // code for new Schema creation
-const createRouter = (body) => {
+const createRouter = async(body) => {
+  const data = await controllerController.createRouter(body)
+  /*
   methods = body.methods;
   let combinedContent = ""
   const content1 = "const express = require('express'); \nconst bodyParser = require('body-parser'); \nconst userController = require('../controllers/userController'); \n"
@@ -30,11 +34,11 @@ const createRouter = (body) => {
   const content4 = "module.exports = router;"
   combinedContent += content4
   
-  const txtFilePath = path.join("./Code/controllers", body.route + '.js');
+  const txtFilePath = path.join("./Code/routes", body.route + '.js');
 
   fs.writeFileSync(txtFilePath, combinedContent, 'utf-8');
 
-
+  */
   return body;
 }
 
