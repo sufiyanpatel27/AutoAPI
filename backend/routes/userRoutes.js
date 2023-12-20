@@ -10,21 +10,35 @@ const router = express.Router();
 router.use(bodyParser.json());
 
 // route to create new schemas
-router.post('/create_schema', async(req, res) => {
+router.post('/create_schema', async (req, res) => {
   const data = await schemaController.createSchema(req.body);
   res.json(data);
 })
 
 // route to create new routes
-router.post('/create_router', async(req, res) => {
+router.post('/create_router', async (req, res) => {
   const data = await routerController.createRouter(req.body);
   res.json(data);
 })
 
 // route to create server
-router.post('/create_code', async(req, res) => {
+router.post('/create_code', async (req, res) => {
   const data = await createCode.createCode();
   res.json(data)
+})
+
+// route to read the schemas
+router.get('/schemas', async (req, res) => {
+  await schemaController.readSchema((error, files) => {
+    if (error) {
+      // Handle errors
+      console.error('Error:', error);
+    } else {
+      // Do something with the files
+      console.log('Files:', files);
+      res.json(files)
+    }
+  })
 })
 
 module.exports = router;

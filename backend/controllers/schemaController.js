@@ -25,6 +25,23 @@ const createSchema = (body) => {
   return body.schema;
 }
 
+// code for reading all Schemas
+const readSchema = (callback) => {
+  fs.readdir('./Code/models/', (err, files) => {
+    if (typeof callback === 'function') {
+      if (err) {
+        console.error('Error reading directory:', err);
+        return callback(err);
+      }
+      console.log(files);
+      callback(null, files);
+    } else {
+      console.error('Callback is not a function');
+    }
+  });
+}
+
 module.exports = {
-  createSchema
+  createSchema,
+  readSchema
 };
