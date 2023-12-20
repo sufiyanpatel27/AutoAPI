@@ -2,7 +2,7 @@
 const fs = require('fs');
 const path = require('path');
 const util = require('util');
-const doubleQuoteRemover = require('./doubleQuoteRemover')
+const doubleQuoteRemover = require('../scripts/doubleQuoteRemover')
 
 // code for new Schema creation
 const createSchema = (body) => {

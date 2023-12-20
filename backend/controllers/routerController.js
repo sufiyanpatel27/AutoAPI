@@ -2,7 +2,6 @@
 const fs = require('fs');
 const path = require('path');
 const util = require('util');
-const doubleQuoteRemover = require('./doubleQuoteRemover')
 
 const controllerController = require('./controllerController')
 
