@@ -5,7 +5,7 @@ const util = require('util');
 
 const controllerController = require('./controllerController')
 
-// code for new Schema creation
+// code for new Router creation
 const createRouter = async (body) => {
 
   await controllerController.createRouter(body)
@@ -38,10 +38,13 @@ const createRouter = async (body) => {
     }
   }
   const content4 = "module.exports = router;"
+  // merging all the contents
   combinedContent += content4
 
+  // creating a javascript file
   const txtFilePath = path.join("./Code/routes", body.route + 'Router.js');
 
+  // writing into the js file
   fs.writeFileSync(txtFilePath, combinedContent, 'utf-8');
 
   return body;

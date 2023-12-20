@@ -9,19 +9,19 @@ const createCode = require('../controllers/submitController')
 const router = express.Router();
 router.use(bodyParser.json());
 
-// route on path "/"
+// route to create new schemas
 router.post('/create_schema', async(req, res) => {
   const data = await schemaController.createSchema(req.body);
   res.json(data);
 })
 
-// route on path "/"
+// route to create new routes
 router.post('/create_router', async(req, res) => {
   const data = await routerController.createRouter(req.body);
   res.json(data);
 })
 
-// route on path "/"
+// route to create server
 router.post('/create_code', async(req, res) => {
   const data = await createCode.createCode();
   res.json(data)

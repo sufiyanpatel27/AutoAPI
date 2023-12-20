@@ -1,4 +1,3 @@
-
 //Code to remove double quotes from the objects
 
 const removeDoubleQuotes = (obj) => {

@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 const util = require('util');
 
-// code for new Schema creation
+// code for new Controller creation
 const createRouter = (body) => {
     let combinedContent = ""
     models = body.models;
@@ -50,10 +50,13 @@ const createRouter = (body) => {
     }
 
     const content5 = "};"
+    // merging all the contents
     combinedContent += content5
     
+    // creating a javascript file
     const txtFilePath = path.join("./Code/controllers", body.route + 'Controller.js');
 
+    // writing into the js file
     fs.writeFileSync(txtFilePath, combinedContent, 'utf-8');
 
 

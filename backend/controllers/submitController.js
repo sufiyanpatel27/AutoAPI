@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 const util = require('util');
 
-// code for new Schema creation
+// code for Server creation
 const createCode = () => {
     fs.readdir('./Code/routes/', (err, files) => {
         let combinedContent = ""
@@ -31,15 +31,13 @@ const createCode = () => {
 
         // merging all the contents
         combinedContent += content11 + content12
+
         // creating a javascript file
         const txtFilePath = path.join("./Code", "server" + '.js');
+
+        // writing into the js file
         fs.writeFileSync(txtFilePath, combinedContent, 'utf-8');
     });
-    //
-
-    // writing into the js file
-    //
-
 }
 
 module.exports = {

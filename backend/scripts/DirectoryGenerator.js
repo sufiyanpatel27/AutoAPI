@@ -1,6 +1,8 @@
-const fs = require('fs').promises;
+// importing necessary packages
 const path = require('path');
+const fs = require('fs').promises;
 
+// function to create new folder
 const createDirectory = async (dirPath) => {
     try {
         await fs.mkdir(dirPath);
@@ -15,8 +17,8 @@ const createDirectory = async (dirPath) => {
 }
 
 // Function to create nested folders
-const createNewDirectory = async() => {
-    const rootFolder = './Code';
+const createNewDirectory = async(directoryName) => {
+    const rootFolder = directoryName;
 
     try {
         // Create the root folder

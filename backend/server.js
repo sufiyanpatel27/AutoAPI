@@ -9,7 +9,8 @@ const PORT = process.env.PORT || 5000;
 // defining express App
 const app = express();
 
-createNewDirectory()
+// creating the export diretory
+createNewDirectory('./Code')
 
 // using routes on path "/"
 app.use('/', userRoutes);
