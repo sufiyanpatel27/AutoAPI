@@ -34,6 +34,9 @@ const readSchema = (callback) => {
         return callback(err);
       }
       console.log(files);
+      for (let i = 0; i <= files.length-1; i++) {
+        files[i] = files[i].split(".")[0];
+      }
       callback(null, files);
     } else {
       console.error('Callback is not a function');

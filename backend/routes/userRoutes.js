@@ -35,7 +35,6 @@ router.get('/schemas', async (req, res) => {
       console.error('Error:', error);
     } else {
       // Do something with the files
-      console.log('Files:', files);
       res.json(files)
     }
   })
