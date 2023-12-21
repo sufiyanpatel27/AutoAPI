@@ -2,12 +2,15 @@
 const express = require('express');
 const userRoutes = require('./routes/userRoutes');
 const createNewDirectory = require('./scripts/DirectoryGenerator')
+const cors = require('cors')
 
 // defining PORT
 const PORT = process.env.PORT || 5000;
 
 // defining express App
 const app = express();
+
+app.use(cors())
 
 // creating the export diretory
 createNewDirectory('./Code')
