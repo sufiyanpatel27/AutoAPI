@@ -22,7 +22,7 @@ const createSchema = (body) => {
   // writing into the js file
   fs.writeFileSync(txtFilePath, combinedContent, 'utf-8');
 
-  return body.schema;
+  //return body.schema;
 }
 
 // code for reading all Schemas
