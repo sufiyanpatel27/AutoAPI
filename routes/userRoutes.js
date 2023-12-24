@@ -40,4 +40,18 @@ router.get('/schemas', async (req, res) => {
   })
 })
 
+// route to read the routers
+router.get('/routers', async (req, res) => {
+  await routerController.readRouter((error, files) => {
+    if (error) {
+      // Handle errors
+      console.error('Error:', error);
+    } else {
+      // Do something with the files
+      res.json(files)
+    }
+  })
+})
+
+
 module.exports = router;
