@@ -33,7 +33,6 @@ const readSchema = (callback) => {
         console.error('Error reading directory:', err);
         return callback(err);
       }
-      console.log(files);
       for (let i = 0; i <= files.length-1; i++) {
         files[i] = files[i].split(".")[0];
       }

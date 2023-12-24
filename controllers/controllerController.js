@@ -14,6 +14,8 @@ const createRouter = (body) => {
     }
     
     methods = body.methods;
+
+    //console.log(methods)
     
     for (let i = 0; i <= methods.length - 1; i++) {
       if (methods[i] == "get") {
