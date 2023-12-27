@@ -63,25 +63,47 @@ const readRouter = (callback) => {
       for (let i = 0; i <= files.length - 1; i++) {
         let routes = [];
         let method = [];
+        let models = [];
 
         const data = fs.readFileSync('./Code/routes/' + files[i], 'utf8');
         const Controllerdata = fs.readFileSync('./Code/controllers/' + files[i].split(".")[0].split("Router")[0] + "Controller.js", 'utf8');
 
 
         if (data.match("router.get")) {
+          const searchTerm = 'users';
+          const regex = new RegExp(`\\b${searchTerm}\\s*=\\s*([^;]*)`);
+          const match = Controllerdata.match(regex);
+          const variableValue = match[1].trim();
+          models.push(variableValue.split("await ")[1].split(".find()")[0]);
           method.push('get')
         } if (data.match("router.post")) {
+          const searchTerm = 'newUser';
+          const regex = new RegExp(`\\b${searchTerm}\\s*=\\s*([^;]*)`);
+          const match = Controllerdata.match(regex);
+          const variableValue = match[1].trim();
+          models.push(variableValue.split("new ")[1].split("(body")[0]);
           method.push('post')
         } if (data.match("router.put")) {
+          const searchTerm = 'user';
+          const regex = new RegExp(`\\b${searchTerm}\\s*=\\s*([^;]*)`);
+          const match = Controllerdata.match(regex);
+          const variableValue = match[1].trim();
+          models.push(variableValue.split("await ")[1].split(".findByIdAndUpdate")[0]);
           method.push('put')
         }
         if (data.match("router.delete")) {
+          const searchTerm = 'result';
+          const regex = new RegExp(`\\b${searchTerm}\\s*=\\s*([^;]*)`);
+          const match = Controllerdata.match(regex);
+          const variableValue = match[1].trim();
+          models.push(variableValue.split("await ")[1].split(".findByIdAndDelete")[0]);
           method.push('delete')
         }
 
         files[i] = "/" + files[i].split(".")[0].split("Router")[0];
         routes.push(files[i]);
         routes.push(method)
+        routes.push(models)
         info.push(routes)
       }
       //console.log(info)
