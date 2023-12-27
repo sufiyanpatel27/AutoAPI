@@ -24,6 +24,10 @@ const createSchema = (body) => {
   //return body.schema;
 }
 
+const deleteSchema = (body) => {
+  //console.log(body.schema);
+  fs.unlinkSync('./Code/models/' + body.schema + ".js")
+}
 // code for reading all Schemas
 const readSchema = (callback) => {
   fs.readdir('./Code/models/', (err, files) => {
@@ -44,5 +48,6 @@ const readSchema = (callback) => {
 
 module.exports = {
   createSchema,
-  readSchema
+  readSchema,
+  deleteSchema
 };

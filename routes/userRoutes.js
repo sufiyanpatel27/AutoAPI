@@ -15,9 +15,20 @@ router.post('/create_schema', async (req, res) => {
   res.json(data);
 })
 
+// route to delete the schema
+router.post('/delete_schema', async (req, res) => {
+  const data = await schemaController.deleteSchema(req.body);
+  res.json(data);
+})
+
 // route to create new routes
 router.post('/create_router', async (req, res) => {
   const data = await routerController.createRouter(req.body);
+  res.json(data);
+})
+
+router.post('/delete_router', async (req, res) => {
+  const data = await routerController.deleteRouter(req.body);
   res.json(data);
 })
 

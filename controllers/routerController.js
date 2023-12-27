@@ -51,6 +51,11 @@ const createRouter = async (body) => {
   return body;
 }
 
+const deleteRouter = (body) => {
+  fs.unlinkSync('./Code/routes/' + body.router.split('/')[1] + "Router.js");
+  fs.unlinkSync('./Code/controllers/' + body.router.split('/')[1] + "Controller.js");
+}
+
 const readRouter = (callback) => {
   fs.readdir('./Code/routes/', (err, files) => {
     if (typeof callback === 'function') {
@@ -117,5 +122,6 @@ const readRouter = (callback) => {
 
 module.exports = {
   createRouter,
-  readRouter
+  readRouter,
+  deleteRouter
 };
