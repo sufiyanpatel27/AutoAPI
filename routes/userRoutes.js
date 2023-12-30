@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const schemaController = require('../controllers/schemaController');
 const routerController = require('../controllers/routerController');
 const createCode = require('../controllers/submitController')
+const createNewDirectory = require('../scripts/DirectoryGenerator')
 require('dotenv').config();
 
 const environment = process.env.environment;
@@ -73,8 +74,14 @@ router.get('/api/download-zip', (req, res) => {
   res.download(zipFilePath);
 });
 
+router.get('/start', async(req, res) => {
+  await createNewDirectory('./Code');
+  res.json("done")
+})
+
 // route to read the schemas
 router.get('/schemas', async (req, res) => {
+  // creating the export diretory
   await schemaController.readSchema((error, files) => {
     if (error) {
       // Handle errors

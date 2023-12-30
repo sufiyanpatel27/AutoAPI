@@ -1,8 +1,8 @@
 // importing necessary packages
 const express = require('express');
 const userRoutes = require('./routes/userRoutes');
-const createNewDirectory = require('./scripts/DirectoryGenerator')
 const cors = require('cors')
+const fs = require('fs')
 require('dotenv').config();
 
 
@@ -14,9 +14,6 @@ const PORT = process.env.PORT || 5000;
 const app = express();
 
 app.use(cors())
-
-// creating the export diretory
-createNewDirectory('./Code')
 
 // using routes on path "/"
 app.use('/', userRoutes);
