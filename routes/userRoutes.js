@@ -5,6 +5,11 @@ const schemaController = require('../controllers/schemaController');
 const routerController = require('../controllers/routerController');
 const createCode = require('../controllers/submitController')
 
+const fs = require('fs');
+const path = require('path');
+const util = require('util');
+const archiver = require('archiver');
+
 // defining router
 const router = express.Router();
 router.use(bodyParser.json());
@@ -35,8 +40,30 @@ router.post('/delete_router', async (req, res) => {
 // route to create server
 router.post('/create_code', async (req, res) => {
   const data = await createCode.createCode();
-  res.json(data)
+
+  const outputZip = fs.createWriteStream('Code.zip');
+
+  // Create a zip archive
+  const archive = archiver('zip', { zlib: { level: 9 } });
+
+  // Pipe the archive to the output stream
+  archive.pipe(outputZip);
+
+  // Add all files in the folder to the archive
+  archive.directory('Code', false);
+
+  // Finalize the archive
+  archive.finalize();
+
+  outputZip.on('close', () => {
+    res.json({ zipFileUrl: 'http://localhost:5000/api/download-zip' });
+  });
 })
+
+router.get('/api/download-zip', (req, res) => {
+  const zipFilePath = path.join('Code.zip');
+  res.download(zipFilePath);
+});
 
 // route to read the schemas
 router.get('/schemas', async (req, res) => {

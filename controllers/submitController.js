@@ -40,22 +40,6 @@ const createCode = () => {
         // writing into the js file
         fs.writeFileSync(txtFilePath, combinedContent, 'utf-8');
 
-
-        //
-        const outputZip = fs.createWriteStream('Code.zip');
-
-        // Create a zip archive
-        const archive = archiver('zip', { zlib: { level: 9 } });
-
-        // Pipe the archive to the output stream
-        archive.pipe(outputZip);
-
-        // Add all files in the folder to the archive
-        archive.directory('Code', false);
-
-        // Finalize the archive
-        archive.finalize();
-
     });
 }
 
