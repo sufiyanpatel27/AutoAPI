@@ -5,6 +5,14 @@ const schemaController = require('../controllers/schemaController');
 const routerController = require('../controllers/routerController');
 const createCode = require('../controllers/submitController')
 require('dotenv').config();
+
+const environment = process.env.environment;
+let base_url = ""
+if (environment == "prod") {
+  base_url = process.env.base_url;
+} else if (environment == "dev") {
+  base_url = "http://localhost:5000/";
+}
 const PORT = process.env.PORT;
 const fs = require('fs');
 const path = require('path');
@@ -56,7 +64,7 @@ router.post('/create_code', async (req, res) => {
   archive.finalize();
 
   outputZip.on('close', () => {
-    res.json({ zipFileUrl: `http://localhost:${PORT}/api/download-zip` });
+    res.json({ zipFileUrl: base_url + "api/download-zip" })
   });
 })
 
