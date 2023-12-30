@@ -4,10 +4,10 @@ const bodyParser = require('body-parser');
 const schemaController = require('../controllers/schemaController');
 const routerController = require('../controllers/routerController');
 const createCode = require('../controllers/submitController')
-
+require('dotenv').config();
+const PORT = process.env.PORT;
 const fs = require('fs');
 const path = require('path');
-const util = require('util');
 const archiver = require('archiver');
 
 // defining router
@@ -56,7 +56,7 @@ router.post('/create_code', async (req, res) => {
   archive.finalize();
 
   outputZip.on('close', () => {
-    res.json({ zipFileUrl: 'http://localhost:5000/api/download-zip' });
+    res.json({ zipFileUrl: `http://localhost:${PORT}/api/download-zip` });
   });
 })
 

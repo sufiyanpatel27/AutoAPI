@@ -3,6 +3,9 @@ const express = require('express');
 const userRoutes = require('./routes/userRoutes');
 const createNewDirectory = require('./scripts/DirectoryGenerator')
 const cors = require('cors')
+require('dotenv').config();
+
+
 
 // defining PORT
 const PORT = process.env.PORT || 5000;
