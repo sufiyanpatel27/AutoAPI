@@ -5,6 +5,7 @@ const schemaController = require('../controllers/schemaController');
 const routerController = require('../controllers/routerController');
 const createCode = require('../controllers/submitController')
 const createNewDirectory = require('../scripts/DirectoryGenerator')
+const directoryDelete = require('../scripts/DirectoryDelete')
 require('dotenv').config();
 
 const environment = process.env.environment;
