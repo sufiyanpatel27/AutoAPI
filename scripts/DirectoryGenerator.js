@@ -10,6 +10,8 @@ const createDirectory = async (dirPath) => {
     } catch (err) {
         if (err.code === 'EEXIST') {
             console.log(`Directory already exists: ${dirPath}`);
+            await fs.rmdir(dirPath, { recursive: true })
+            await fs.mkdir(dirPath);
         } else {
             throw err;
         }
