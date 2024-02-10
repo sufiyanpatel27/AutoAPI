@@ -40,6 +40,7 @@ const createCode = () => {
         // writing into the js file
         fs.writeFileSync(txtFilePath, combinedContent, 'utf-8');
 
+        return "code generated"
     });
 }
 
