@@ -48,9 +48,10 @@ router.post('/delete_router', async (req, res) => {
 
 // route to create server
 router.post('/create_code', async (req, res) => {
-  const data = await createCode.createCode();
+  createCode.createCode();
 
-  const outputZip = fs.createWriteStream('Code.zip');
+  setTimeout(() => {
+    const outputZip = fs.createWriteStream('Code.zip');
 
   // Create a zip archive
   const archive = archiver('zip', { zlib: { level: 9 } });
@@ -67,6 +68,8 @@ router.post('/create_code', async (req, res) => {
   outputZip.on('close', () => {
     res.json({ zipFileUrl: base_url + "api/download-zip" })
   });
+  }, 3000);
+
 })
 
 router.get('/api/download-zip', (req, res) => {
