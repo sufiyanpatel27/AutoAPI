@@ -82,6 +82,10 @@ router.get('/start', async(req, res) => {
   res.json("done")
 })
 
+router.get('/initialize', async(req, res) => {
+  res.json('backend initialized')
+})
+
 // route to read the schemas
 router.get('/schemas', async (req, res) => {
   // creating the export diretory
