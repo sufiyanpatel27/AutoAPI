@@ -26,9 +26,9 @@ const createRouter = (body) => {
     switch (requests[i]) {
       case "get":
         if (methods[i] === "findById()") {
-          content2 = "const getUsers = async (id) => { \ntry { \nconst users = await " + body.models[i] + ".findById(id);"
+          content2 = "const getUserById = async (id) => { \ntry { \nconst users = await " + body.models[i] + ".findById(id);"
         } else if(methods[i] === "findOne()") {
-          content2 = "const getUsers = async (quryparam) => { \ntry { \nconst users = await " + body.models[i] + ".findOne( {" + quryparams[i] + ": quryparam" +" });"
+          content2 = "const getUser = async (quryparam) => { \ntry { \nconst users = await " + body.models[i] + ".findOne( {" + quryparams[i] + ": quryparam" +" });"
         }
         else {
           content2 = "const getUsers = async () => { \ntry { \nconst users = await " + body.models[i] + ".find();"
@@ -50,7 +50,7 @@ const createRouter = (body) => {
         if (methods[i] === "findOneAndDelete()") {
           content2 = "const deleteUser = async (quryparam) => { \ntry { \nconst result = await " + body.models[i] + ".findOneAndDelete( {" + quryparams[i] + ": quryparam" +" });"
         } else {
-          content2 = "const deleteUser = async (id) => { \ntry { \nconst result = await " + body.models[i] + ".findByIdAndDelete(id);"
+          content2 = "const deleteUserById = async (id) => { \ntry { \nconst result = await " + body.models[i] + ".findByIdAndDelete(id);"
         }
         content2 += " \nreturn result !== null; \n} catch (error) { \nthrow error; \n} \n}; \n\n"
 
@@ -66,7 +66,13 @@ const createRouter = (body) => {
     let content4 = "";
     switch (requests[i]) {
       case "get":
-        content4 = "getUsers, \n"
+        if (methods[i] == "findById()") {
+          content4 = "getUserById, \n"  
+        } else if (methods[i] == "find()") {
+          content4 = "getUsers, \n"
+        } else if (methods[i] == "findOne()") {
+          content4 = "getUser, \n"
+        }
         combinedContent += content4
         break
       case "post":
@@ -78,7 +84,11 @@ const createRouter = (body) => {
         combinedContent += content4
         break
       case "delete":
-        content4 = "deleteUser, \n"
+        if (methods[i] == "findOneAndDelete()") {
+          content4 = "deleteUser, \n"  
+        } else {
+          content4 = "deleteUserById, \n"
+        }
         combinedContent += content4
         break
     }
