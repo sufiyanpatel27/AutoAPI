@@ -36,10 +36,45 @@ const readSchema = (callback) => {
         console.error('Error reading directory:', err);
         return callback(err);
       }
-      for (let i = 0; i <= files.length-1; i++) {
+
+      let info = []
+
+      for (let i = 0; i <= files.length - 1; i++) {
+        let models = [];
         files[i] = files[i].split(".")[0];
+        //console.log(files)
+        const data = fs.readFileSync('./Code/models/' + files[i] + ".js", 'utf8');
+        const searchTerm = files[i] + 'Schema';
+        const regex = new RegExp(`\\b${searchTerm}\\s*=\\s*([^;]*)`);
+        const match = data.match(regex);
+        const variableValue = match[1].trim();
+        const final_data = variableValue.split('(')
+        const stringJson = final_data[1].split(')')[0]
+        //
+        str = stringJson.trim();
+        str = str.substring(1, str.length - 1);
+        var parts = str.split(/,(?![^{]*})/);
+        var obj = {};
+
+        parts.forEach(function (part) {
+          var keyValue = part.split(/:(?![^{]*})/);
+          var key = keyValue[0].trim();
+          var value = keyValue[1].trim();
+          obj[key] = eval('(' + value + ')');
+        });
+        //
+
+        models.push(files[i])
+        models.push(obj)
+
+        info.push(models)
       }
-      callback(null, files);
+
+      //console.log(info)
+
+
+
+      callback(null, info);
     } else {
       console.error('Callback is not a function');
     }
