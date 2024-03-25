@@ -6,7 +6,7 @@ const archiver = require('archiver');
 
 
 // code for Server creation
-const createCode = () => {
+const createCode = async() => {
     fs.readdir('./Code/routes/', (err, files) => {
         let combinedContent = ""
         if (err) console.error('Error reading folder:', err);

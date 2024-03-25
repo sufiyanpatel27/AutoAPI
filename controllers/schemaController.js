@@ -4,7 +4,7 @@ const path = require('path');
 const util = require('util');
 
 // code for new Schema creation
-const createSchema = (body) => {
+const createSchema = async(body) => {
   const content1 = "const mongoose = require('mongoose');\n\n";
   const content2 = "const " + body.schemaName + "Schema = new mongoose.Schema(";
   const content3 = body.schema;
@@ -25,7 +25,6 @@ const createSchema = (body) => {
 }
 
 const deleteSchema = (body) => {
-  //console.log(body.schema);
   fs.unlinkSync('./Code/models/' + body.schema + ".js")
 }
 // code for reading all Schemas
@@ -42,7 +41,6 @@ const readSchema = (callback) => {
       for (let i = 0; i <= files.length - 1; i++) {
         let models = [];
         files[i] = files[i].split(".")[0];
-        //console.log(files)
         const data = fs.readFileSync('./Code/models/' + files[i] + ".js", 'utf8');
         const searchTerm = files[i] + 'Schema';
         const regex = new RegExp(`\\b${searchTerm}\\s*=\\s*([^;]*)`);
@@ -69,8 +67,6 @@ const readSchema = (callback) => {
 
         info.push(models)
       }
-
-      //console.log(info)
 
 
 

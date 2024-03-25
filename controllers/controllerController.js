@@ -17,9 +17,7 @@ const createRouter = (body) => {
 
   methods = body.methods;
 
-  quryparams = body.quryparams;
-
-  console.log(methods)
+  quryparams = body.queryParams;
 
   for (let i = 0; i <= requests.length - 1; i++) {
     let content2 = "";
