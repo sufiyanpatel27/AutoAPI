@@ -48,41 +48,79 @@ router.post('/delete_router', async (req, res) => {
 
 // route to create server
 router.post('/create_code', async (req, res) => {
-  createCode.createCode();
+
+  await createNewDirectory('./Code');
+
+
+  for (let i = 0; i <= req.body.schemas.length - 1; i++) {
+    await schemaController.createSchema(req.body.schemas[i].data);
+  }
+
+  for (let i = 0; i <= req.body.routers.length - 1; i++) {
+    await routerController.createRouter(req.body.routers[i].data);
+  }
+
+
+  await createCode.createCode();
 
   setTimeout(() => {
     const outputZip = fs.createWriteStream('Code.zip');
 
-  // Create a zip archive
-  const archive = archiver('zip', { zlib: { level: 9 } });
+    // Create a zip archive
+    const archive = archiver('zip', { zlib: { level: 9 } });
 
-  // Pipe the archive to the output stream
-  archive.pipe(outputZip);
+    // Pipe the archive to the output stream
+    archive.pipe(outputZip);
 
-  // Add all files in the folder to the archive
-  archive.directory('Code', false);
+    // Add all files in the folder to the archive
+    archive.directory('Code', false);
 
-  // Finalize the archive
-  archive.finalize();
+    // Finalize the archive
+    archive.finalize();
 
-  outputZip.on('close', () => {
-    res.json({ zipFileUrl: base_url + "api/download-zip" })
-  });
+    outputZip.on('close', () => {
+      res.json({ zipFileUrl: base_url + "api/download-zip" })
+    });
   }, 3000);
 
+  setTimeout(() => {
+    const folderPath = 'Code';
+
+    fs.rmdir(folderPath, { recursive: true }, (err) => {
+      if (err) {
+        console.error('Error deleting folder:', err);
+        return;
+      }
+      console.log('Folder deleted successfully');
+    });
+    const filePath = 'Code.zip';
+
+    fs.unlink(filePath, (err) => {
+      if (err) {
+        console.error('Error deleting file:', err);
+        return;
+      }
+      console.log('File deleted successfully');
+    });
+  }, 6000)
+
 })
+
+//
+
+//
 
 router.get('/api/download-zip', (req, res) => {
   const zipFilePath = path.join('Code.zip');
   res.download(zipFilePath);
 });
 
-router.get('/start', async(req, res) => {
+router.get('/start', async (req, res) => {
   await createNewDirectory('./Code');
   res.json("done")
 })
 
-router.get('/initialize', async(req, res) => {
+router.get('/initialize', async (req, res) => {
   res.json('backend initialized')
 })
 
