@@ -32,7 +32,7 @@ const createRouter = async (body) => {
         if (methods[i] == "findById()") {
           content2 = "router." + requests[i] + "(" + "'" + body.route + "/:id'" + ", async (req, res) => { \ntry { \nconst Users = await " + body.route.split('/')[1] + "Controller.getUserById(req.params.id); \nres.json(Users); \n} catch (error) { \nres.status(500).json({ error: 'Internal Server Error' }); \n}}); \n\n"
         } else if (methods[i] === "findOne()") {
-          content2 = "router." + requests[i] + "(" + "'" + body.route + "'" + ", async (req, res) => { \ntry { \nconst Users = await " + body.route.split('/')[1] + "Controller.getUser(req.query." + queryparams[i] + "); \nres.json(Users); \n} catch (error) { \nres.status(500).json({ error: 'Internal Server Error' }); \n}}); \n\n"
+          content2 = "router." + requests[i] + "(" + "'" + body.route + "/" + body.queryParams[i] + "'" + ", async (req, res) => { \ntry { \nconst Users = await " + body.route.split('/')[1] + "Controller.getUser(req.query." + queryparams[i] + "); \nres.json(Users); \n} catch (error) { \nres.status(500).json({ error: 'Internal Server Error' }); \n}}); \n\n"
         }
         else {
           content2 = "router." + requests[i] + "(" + "'" + body.route + "'" + ", async (req, res) => { \ntry { \nconst Users = await " + body.route.split('/')[1] + "Controller.getUsers(); \nres.json(Users); \n} catch (error) { \nres.status(500).json({ error: 'Internal Server Error' }); \n}}); \n\n"
@@ -49,7 +49,7 @@ const createRouter = async (body) => {
         break
       case "delete":
         if (methods[i] == "findOneAndDelete()") {
-          content2 = "router." + requests[i] + "(" + "'" + body.route + "'" + ", async (req, res) => { \ntry { \nconst newUser = await " + body.route.split('/')[1] + "Controller.deleteUser(req.query." + queryparams[i] + "); \nres.status(201).json(newUser); \n} catch (error) { \nres.status(500).json({ error: 'Internal Server Error' }); \n}}); \n\n"
+          content2 = "router." + requests[i] + "(" + "'" + body.route + "/" + body.queryParams[i] + "'" + ", async (req, res) => { \ntry { \nconst newUser = await " + body.route.split('/')[1] + "Controller.deleteUser(req.query." + queryparams[i] + "); \nres.status(201).json(newUser); \n} catch (error) { \nres.status(500).json({ error: 'Internal Server Error' }); \n}}); \n\n"
         } else {
           content2 = "router." + requests[i] + "(" + "'" + body.route + "/:id'" + ", async (req, res) => { \ntry { \nconst newUser = await " + body.route.split('/')[1] + "Controller.deleteUserById(req.params.id); \nres.status(201).json(newUser); \n} catch (error) { \nres.status(500).json({ error: 'Internal Server Error' }); \n}}); \n\n"
         }
